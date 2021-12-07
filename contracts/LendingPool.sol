@@ -2,10 +2,6 @@
 
 pragma solidity ^0.8.1;
 
-/** 
- * @title Ballot
- * @dev Implements voting process along with vote delegation
- */
 contract LendingPool{
 
     uint256 public id = 100;
@@ -15,10 +11,10 @@ contract LendingPool{
    
     struct Pool {
         uint poolId;
-        uint  minScore; // weight is accumulated by delegation
+        uint  minScore; 
         uint  maxScore; 
-        uint apr;  // if true, that person already voted
-        uint maxAmount; // person delegated to
+        uint apr;  
+        uint maxAmount; 
         RiskType riskType;
     }
 
@@ -42,6 +38,12 @@ contract LendingPool{
        function getPools() public view returns (Pool[] memory) {
         return poolFinal;
     }
+
+    function getRiskPools(RiskType riskType) public view returns (Pool[] memory) {
+        return pools[riskType];
+    }
+
+
     
    
 }
