@@ -21,7 +21,7 @@ contract GrowrLoan {
     Loan[] listLoans;
 
     function createNewLoan(
-        address _rBTC,
+        address payable _rBTC,
         uint256 _minPayment,
         uint256 _paymentPeriod,
         uint256 _principal,
@@ -40,10 +40,15 @@ contract GrowrLoan {
         loan.totalPaymentsValue = _totalPaymentsValue;
         loans[loan.loanId] = loan;
         listLoans.push(loan);
+        disburseLoan(_rBTC,_principal);
         return loan.loanId;
     }
 
     function getLoanLists() public view returns (Loan[] memory) {
         return listLoans;
+    }
+
+    function disburseLoan(address payable _borrower,uint256 _amount) public {
+        _borrower.transfer(_amount);
     }
 }
